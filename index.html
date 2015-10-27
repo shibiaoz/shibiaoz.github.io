@@ -65,6 +65,91 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-node-shell-interface" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/27/node-shell-interface/" class="article-date">
+  <time datetime="2015-10-27T13:52:04.000Z" itemprop="datePublished">2015-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/27/node-shell-interface/">node shell interface</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>node</code> 中经常会涉及到一些<code>shell</code>的操作，node提供相应的<code>api</code>去写shell程序<br>process.argv 获取命令行输入的参数<br>node社区提供了很多对node提供的api封装的api,还有我们经常-g install的package执行的时候都会一个很牛逼的图形有么有，怎么搞的呢？yosay？</p>
+<h2 id="readline">readline</h2><p>readline是node内置的一个与命令行窗口进行交互的一个模块，<br>主要功能就是<code>询问输入</code>或者通过<code>completer</code> 进行提示<br><a href="https://github.com/shibiaoz/h5gen/blob/master/test/readline.js" target="_blank" rel="external">demo</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">demo-<span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> rl = readline.createInterface(&#123;</span><br><span class="line">    input:process.stdin,</span><br><span class="line">    output:process.stdout,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rl.question(<span class="string">"give me your page id?\n"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">answer</span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(answer);</span><br><span class="line">     rl.close();</span><br><span class="line">&#125;);</span><br><span class="line">api-<span class="number">2</span></span><br><span class="line">rl.on(<span class="string">'line'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = res;</span><br><span class="line">    rl.close();</span><br><span class="line">&#125;)</span><br><span class="line">.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'command close '</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="inquirer">inquirer</h2><p>readline可以解决大部分问题，但是没有提供类似web 中select <code>option</code>那种封装<br>就像yo generator中那个option通过键盘选择的那些东东，经过我不懈的找，终于找到<br>还不错的库，以下demo利用promise的实现库q进行一层封装,<a href="https://github.com/SBoudrias/Inquirer.js/tree/master/examples" target="_blank" rel="external">更多的demo</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 用 实现promise的q模块实现异步的包装</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">var</span> Q = <span class="built_in">require</span>(<span class="string">'q'</span>);</span><br><span class="line"><span class="keyword">var</span> prompt = <span class="built_in">require</span>(<span class="string">'prompt'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">syncPrompt</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> deferred = Q.defer();</span><br><span class="line">    prompt.get([&#123;</span><br><span class="line">      name: <span class="string">'name'</span>,</span><br><span class="line">      description: <span class="string">'Your name'</span>,</span><br><span class="line">      type: <span class="string">'string'</span>,</span><br><span class="line">      required: <span class="literal">true</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      name: <span class="string">'surname'</span>,</span><br><span class="line">      description: <span class="string">'Your surname'</span>,</span><br><span class="line">      type: <span class="string">'string'</span>,</span><br><span class="line">      required: <span class="literal">true</span>,</span><br><span class="line">      message: <span class="string">'Please dont use the demo credentials'</span>,</span><br><span class="line">      conform: <span class="function"><span class="keyword">function</span>(<span class="params">surname</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> name = prompt.history(<span class="string">'name'</span>).value;</span><br><span class="line">        <span class="keyword">return</span> (name !== <span class="string">'John'</span> || surname !== <span class="string">'Smith'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;], <span class="function"><span class="keyword">function</span>(<span class="params">err, results</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        deferred.reject(err);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        deferred.resolve(results);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> deferred.promise.nodeify(callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">syncPrompt().done(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="应用的图形文案">应用的图形文案</h2><p>chalk 一个很容易改变输出字符串的颜色的库，很方便<br>yosay yo generator 中输入的那个yo man的图形，之前不怎么了解这个东西<br>在项目中引入了，被同事吐槽为啥用yo man的图形，经他提醒去往上各种搜，github<br>中这种库不多，而且图形文案较为单一，还有的是通过选用图片来展示的，用图片来解决的<br>两个库，我没试过，mark说不定以后用的着呢，<a href="https://github.com/switer/imaging" target="_blank" rel="external">imaging</a> 还有<a href="https://github.com/substack/picture-tube" target="_blank" rel="external">picture-tube</a><br>最后找到一个输出很多<a href="http://boxes.thomasjensen.com/" target="_blank" rel="external">图形字符</a>的应用，不是用node实现的，通过拷贝图形然后存入txt中，然后fs读取在利用正则替换<br>利用图形的颜色<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line">var chalk = require(<span class="string">'chalk'</span>);</span><br><span class="line">var path = require(<span class="string">'path'</span>);</span><br><span class="line">function say() &#123;</span><br><span class="line">    console.<span class="built_in">log</span>(chalk.<span class="built_in">red</span>(path.<span class="built_in">join</span>(__dirname,<span class="string">'ascii.txt'</span>)));</span><br><span class="line">    var <span class="built_in">str</span> = fs.readFileSync(path.<span class="built_in">join</span>(__dirname,<span class="string">'ascii.txt'</span>)).toString();</span><br><span class="line">    <span class="built_in">str</span> = <span class="built_in">str</span>.replace(<span class="string">'(.)(.)'</span>, chalk.<span class="built_in">red</span>(<span class="string">'(.)(.)'</span>));</span><br><span class="line">    <span class="built_in">str</span> = <span class="built_in">str</span>.replace(<span class="string">'Bravo H5 Gen!'</span>, chalk.<span class="built_in">green</span>(<span class="string">'Bravo H5 Gen!'</span>));</span><br><span class="line">    <span class="built_in">str</span> = <span class="built_in">str</span>.replace(<span class="string">"\\\\\\///"</span>, chalk.yellow(<span class="string">"\\\\\\///"</span>));</span><br><span class="line">    console.<span class="built_in">log</span>(<span class="built_in">str</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.say = say;</span><br><span class="line"></span><br><span class="line">ascii.txt =&gt;</span><br><span class="line"></span><br><span class="line">         \\\<span class="comment">///</span></span><br><span class="line">        / _  _ \</span><br><span class="line">      (| (.)(.) |)</span><br><span class="line">.---.OOOo--()--oOOO.---.</span><br><span class="line">|                      |</span><br><span class="line">|     Bravo H5 Gen!    |</span><br><span class="line">|                      |</span><br><span class="line"><span class="string">'---.oooO--------------'</span></span><br><span class="line">     (   )   Oooo.</span><br><span class="line">      \ (    (   )</span><br><span class="line">       \_)    ) /</span><br><span class="line">             (_/</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/27/node-shell-interface/" data-id="cig9fnbyh0001fetpi7g0irxw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/14/hello-world/" class="article-date">
+  <time datetime="2015-10-14T13:27:03.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/hello-world/">Hello Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/14/hello-world/" data-id="cig9fnbyp0002fetplpc6z41e" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Adaptation-summary" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/14/Adaptation-summary/" class="article-date">
@@ -136,52 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/14/Adaptation-summary/" data-id="cifqtza9m0000pdtpjwrd5gju" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/30/hello-world/" class="article-date">
-  <time datetime="2015-09-30T09:27:47.000Z" itemprop="datePublished">2015-09-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/30/hello-world/">Hello Hexo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/09/30/hello-world/" data-id="cifqtzaau0001pdtpduabkepl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/14/Adaptation-summary/" data-id="cig9fnbxo0000fetpjy8ta776" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +246,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -218,11 +258,15 @@
       <ul>
         
           <li>
-            <a href="/2015/10/14/Adaptation-summary/">Adaptation summary</a>
+            <a href="/2015/10/27/node-shell-interface/">node shell interface</a>
           </li>
         
           <li>
-            <a href="/2015/09/30/hello-world/">Hello Hexo</a>
+            <a href="/2015/10/14/hello-world/">Hello Hexo</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/14/Adaptation-summary/">Adaptation summary</a>
           </li>
         
       </ul>
