@@ -21,7 +21,7 @@ I don’t want to maintain this module anymore since I just us">
 <meta property="og:description" content="mark 下两个比较好用命令参数处理工具最近写的命令行工具涉及到处理命令输入的参数，我都是process.argv.slice(2) 去去处理的，看到zswang写的项目中用的optimist 瞬间觉得自己弱爆了。于是就去npmjs搜了搜，使用下觉得很方便，但是作者给出了建议
 
 I don’t want to maintain this module anymore since I just us">
-<meta property="og:updated_time" content="2015-11-15T15:25:34.000Z">
+<meta property="og:updated_time" content="2015-11-25T02:00:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node 命令行处理传入参数">
 <meta name="twitter:description" content="mark 下两个比较好用命令参数处理工具最近写的命令行工具涉及到处理命令输入的参数，我都是process.argv.slice(2) 去去处理的，看到zswang写的项目中用的optimist 瞬间觉得自己弱爆了。于是就去npmjs搜了搜，使用下觉得很方便，但是作者给出了建议
@@ -108,7 +108,7 @@ I don’t want to maintain this module anymore since I just us">
 		
 		<h3 id="mark_下两个比较好用命令参数处理工具">mark 下两个比较好用命令参数处理工具</h3><p>最近写的命令行工具涉及到处理命令输入的参数，<br>我都是process.argv.slice(2) 去去处理的，看到zswang写的<br>项目中用的<code>optimist</code> 瞬间觉得自己弱爆了。于是就去<a href="https://www.npmjs.com/package/optimist" target="_blank" rel="external">npmjs</a><br>搜了搜，使用下觉得很方便，<code>但是</code>作者给出了建议</p>
 <blockquote>
-<p>I don’t want to maintain this module anymore since I just use minimist, the argument parsing engine, directly instead nowadays.</p>
+<p>I don’t want to maintain this module anymore since I just use minimist, the argument parsing engine, directly instead nowadays.<br><a id="more"></a></p>
 </blockquote>
 <p>意思是说，更牛逼的是<code>minimist</code>， 接着又去看了这货，并且各自实验了，的却minimist更便捷些<br>不过唯一不好的是minimist不能在什么都不输入的时候给出每个参数的help 提示，不过可已少做处理<br>打印个字符串提示就好了，看到有个很好的实现是把提示信息注释写在一个function ，返回function<br>的tostring 然后用正则匹配加上点颜色就好了。</p>
 <p>在这里记录下，分别列出两个的使用。</p>
