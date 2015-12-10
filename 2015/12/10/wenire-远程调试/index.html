@@ -4,22 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Knight</title>
+    <title>wenire 远程调试 | Knight</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Shibiaoz">
     
 
     
-    <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Knight">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="之前用ios 上safari 去调试移动端的页面，但safari的调试不那么方便，上次调试微信分享的时候，团队小伙伴bukas 推荐用wenire，在他的指导下试用了下，觉得wenire 牛逼，好用，这里记录下使用及wenire的实现原理
+
+wenirewenire 是apache的一个项目地址所有的使用文档都在这里，可以参照install 和running 即可
+原理Weinre作为一种远程调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wenire 远程调试">
+<meta property="og:url" content="http://yoursite.com/2015/12/10/wenire-远程调试/index.html">
 <meta property="og:site_name" content="Knight">
-<meta property="og:description">
+<meta property="og:description" content="之前用ios 上safari 去调试移动端的页面，但safari的调试不那么方便，上次调试微信分享的时候，团队小伙伴bukas 推荐用wenire，在他的指导下试用了下，觉得wenire 牛逼，好用，这里记录下使用及wenire的实现原理
+
+wenirewenire 是apache的一个项目地址所有的使用文档都在这里，可以参照install 和running 即可
+原理Weinre作为一种远程调试">
+<meta property="og:image" content="http://yoursite.com/../img/http-flow.png">
+<meta property="og:image" content="http://yoursite.com/../img/wenire-home.png">
+<meta property="og:image" content="http://yoursite.com/../img/target-script.png">
+<meta property="og:image" content="http://yoursite.com/../img/access.png">
+<meta property="og:image" content="http://yoursite.com/../img/debug.png">
+<meta property="og:image" content="http://yoursite.com/../img/result.png">
+<meta property="og:updated_time" content="2015-12-10T03:45:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Knight">
-<meta name="twitter:description">
+<meta name="twitter:title" content="wenire 远程调试">
+<meta name="twitter:description" content="之前用ios 上safari 去调试移动端的页面，但safari的调试不那么方便，上次调试微信分享的时候，团队小伙伴bukas 推荐用wenire，在他的指导下试用了下，觉得wenire 牛逼，好用，这里记录下使用及wenire的实现原理
+
+wenirewenire 是apache的一个项目地址所有的使用文档都在这里，可以参照install 和running 即可
+原理Weinre作为一种远程调试">
 
     
     <link rel="alternative" href="/atom.xml" title="Knight" type="application/atom+xml">
@@ -73,12 +89,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/12/10/wenire-远程调试/" title="wenire 远程调试" itemprop="url">wenire 远程调试</a>
@@ -92,9 +106,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <blockquote>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wenire"><span class="toc-number">1.</span> <span class="toc-text">wenire</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">3.</span> <span class="toc-text">使用</span></a></li></ol>
+		
+		</div>
+		
+		<blockquote>
 <p>之前用ios 上safari 去调试移动端的页面，但safari的调试不那么方便，上次调试微信分享的时候，团队小伙伴bukas 推荐用wenire，在他的指导下试用了下，觉得wenire 牛逼，好用，这里记录下使用及wenire的实现原理</p>
 </blockquote>
 <h2 id="wenire">wenire</h2><p>wenire 是apache的一个项目<br><a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html" target="_blank" rel="external">地址</a><br>所有的使用文档都在这里，可以参照install 和running 即可</p>
@@ -125,14 +146,9 @@
 </li>
 </ul>
 <p><img src="../img/debug.png" alt="调试脚本"><br><img src="../img/result.png" alt="结果"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -145,308 +161,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2015/12/10/wenire-远程调试/" data-title="wenire 远程调试 | Knight" data-tsina="shibiaoz" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/15/node-operate-argv/" title="node 命令行处理传入参数" itemprop="url">node 命令行处理传入参数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Shibiaoz" target="_blank" itemprop="author">Shibiaoz</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-15T12:54:32.000Z" itemprop="datePublished"> 发表于 2015-11-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="mark_下两个比较好用命令参数处理工具">mark 下两个比较好用命令参数处理工具</h3><p>最近写的命令行工具涉及到处理命令输入的参数，<br>我都是process.argv.slice(2) 去去处理的，看到zswang写的<br>项目中用的<code>optimist</code> 瞬间觉得自己弱爆了。于是就去<a href="https://www.npmjs.com/package/optimist">npmjs</a><br>搜了搜，使用下觉得很方便，<code>但是</code>作者给出了建议</p>
-<blockquote>
-<p>I don’t want to maintain this module anymore since I just use minimist, the argument parsing engine, directly instead nowadays.<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/11/15/node-operate-argv/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/nodeJs/">nodeJs</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/11/15/node-operate-argv/"  title="node 命令行处理传入参数">
+ <strong>下一篇：</strong><br/> 
+ <span>node 命令行处理传入参数
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/14/js-call-java-interface/" title="Java 调用Android 暴露的方法" itemprop="url">Java 调用Android 暴露的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Shibiaoz" target="_blank" itemprop="author">Shibiaoz</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-14T12:25:11.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Android提供了一个很强大的WebView控件用来处理Web网页，so， 如何在js来调用android<br>的方法呢，做个简单的了解记录下。本文主要记录下如何用js调用java中的一些方法，后续会研究<br>下如何调用java call js的实现，不过个人感觉更多的情况是js  去调用android一些功能<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/11/14/js-call-java-interface/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/webview/">webview</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
 	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/27/node-shell-interface/" title="node 交互式命令行" itemprop="url">node 交互式命令行</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Shibiaoz" target="_blank" itemprop="author">Shibiaoz</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-27T13:52:04.000Z" itemprop="datePublished"> 发表于 2015-10-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><code>node</code> 中经常会涉及到一些<code>shell</code>的操作，node提供相应的<code>api</code>去写shell程序<br>process.argv 获取命令行输入的参数<br>node社区提供了很多对node提供的api封装的api,还有我们经常-g install的package执行的时候都会一个很牛逼的图形有么有，怎么搞的呢？yosay？<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/27/node-shell-interface/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/nodeJs/">nodeJs</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/14/Adaptation-summary/" title="移动端适配方案" itemprop="url">移动端适配方案</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Shibiaoz" target="_blank" itemprop="author">Shibiaoz</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-14T13:24:33.000Z" itemprop="datePublished"> 发表于 2015-10-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>移动端适配方案总结，移动端开发总是存在很多的挑战，兼容性、性能、更高要求的用户体验，都是前端攻城狮需要一一攻破的壁垒。而大屏、高分辨率的手机的出现，又为攻城狮们立下了一个新的制高点，如何适配不同尺寸，不同分辨率的机器，如何在高清分辨率的屏幕上为用户呈现更精致的作品，是前端攻城狮新的挑战。（最近在做调研，mark下伟涛写的）<a href="http://slides.com/shibiaozhang/deck-1/live#/">总结</a><br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/14/Adaptation-summary/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/适配/">适配</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/09/14/hello-world/" title="Hello Hexo" itemprop="url">Hello Hexo</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Shibiaoz" target="_blank" itemprop="author">Shibiaoz</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-14T11:25:11.000Z" itemprop="datePublished"> 发表于 2015-09-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a><br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/09/14/hello-world/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/其他/">其他</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wenire"><span class="toc-number">1.</span> <span class="toc-text">wenire</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">3.</span> <span class="toc-text">使用</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -618,12 +369,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -684,4 +512,4 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
