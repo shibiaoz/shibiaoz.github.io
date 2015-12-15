@@ -23,13 +23,13 @@ wenirewenire 是apache的一个项目地址所有的使用文档都在这里，�
 
 wenirewenire 是apache的一个项目地址所有的使用文档都在这里，可以参照install 和running 即可
 原理Weinre作为一种远程调试">
-<meta property="og:image" content="http://yoursite.com/../img/http-flow.png">
-<meta property="og:image" content="http://yoursite.com/../img/wenire-home.png">
-<meta property="og:image" content="http://yoursite.com/../img/target-script.png">
-<meta property="og:image" content="http://yoursite.com/../img/access.png">
-<meta property="og:image" content="http://yoursite.com/../img/debug.png">
-<meta property="og:image" content="http://yoursite.com/../img/result.png">
-<meta property="og:updated_time" content="2015-12-10T03:45:26.000Z">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/http-flow.png">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/wenire-home.png">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/target-script.png">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/access.png">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/debug.png">
+<meta property="og:image" content="http://yoursite.com/images/wenire_img/result.png">
+<meta property="og:updated_time" content="2015-12-15T12:34:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wenire 远程调试">
 <meta name="twitter:description" content="之前用ios 上safari 去调试移动端的页面，但safari的调试不那么方便，上次调试微信分享的时候，团队小伙伴bukas 推荐用wenire，在他的指导下试用了下，觉得wenire 牛逼，好用，这里记录下使用及wenire的实现原理
@@ -125,17 +125,17 @@ wenirewenire 是apache的一个项目地址所有的使用文档都在这里，�
 <li>调试客户端 Debug Client本地的Web Inspector调试客户端</li>
 <li>调试服务端 Debug Agent,一个HTTP Server，为目标页面与Debug客户端建立通信。</li>
 </ul>
-<p>本身Debug Client 基于Web Inspector，Web Inspector基于webkit 内核的，所以wenire 支持在web kit的浏览器，safari 和chrome<br>盗个图<br><img src="../img/http-flow.png" alt="image"></p>
+<p>本身Debug Client 基于Web Inspector，Web Inspector基于webkit 内核的，所以wenire 支持在web kit的浏览器，safari 和chrome<br>盗个图<br><img src="/images/wenire_img/http-flow.png" alt="image"></p>
 <h2 id="使用">使用</h2><ul>
 <li>安装 &amp;&amp; 启动<br>参照项目主页上进行安装即可<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">sudo</span> <span class="comment">npm</span> <span class="literal">-</span><span class="comment">g</span> <span class="comment">install</span> <span class="comment">weinre</span></span><br><span class="line"><span class="comment">wenire</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">httpPort</span> <span class="comment">8081</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">boundHost</span> <span class="literal">-</span><span class="comment">all</span><span class="literal">-</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>然后访问<a href="http://localhost:8080/，也可以用ip来访问，不在一台机器的时候就用ip来访问，" target="_blank" rel="external">http://localhost:8080/，也可以用ip来访问，不在一台机器的时候就用ip来访问，</a> 即可看到<br><img src="../img/wenire-home.png" alt="调试主页"></p>
+<p>然后访问<a href="http://localhost:8080/，也可以用ip来访问，不在一台机器的时候就用ip来访问，" target="_blank" rel="external">http://localhost:8080/，也可以用ip来访问，不在一台机器的时候就用ip来访问，</a> 即可看到<br><img src="/images/wenire_img/wenire-home.png" alt="调试主页"></p>
 <ul>
-<li>目标页面<br>在目标页面里引入js，你在启动时候看到的主页的里面的target<br><img src="../img/target-script.png" alt="目标脚本"></li>
+<li>目标页面<br>在目标页面里引入js，你在启动时候看到的主页的里面的target<br><img src="/images/wenire_img/target-script.png" alt="目标脚本"></li>
 </ul>
 <ul>
-<li><p>调试端<br>这个时候，你在之前主页里主要看到Access Points，点击clent interface进入调试页面，tartgets这里列举的都是你在调试页面引入target script js 的页面链接，点击即可到对页面的调试<br><img src="../img/access.png" alt="调试端"></p>
+<li><p>调试端<br>这个时候，你在之前主页里主要看到Access Points，点击clent interface进入调试页面，tartgets这里列举的都是你在调试页面引入target script js 的页面链接，点击即可到对页面的调试<br><img src="/images/wenire_img/access.png" alt="调试端"></p>
 </li>
 <li><p>很炫的能力</p>
 <ul>
@@ -145,7 +145,7 @@ wenirewenire 是apache的一个项目地址所有的使用文档都在这里，�
 </ul>
 </li>
 </ul>
-<p><img src="../img/debug.png" alt="调试脚本"><br><img src="../img/result.png" alt="结果"></p>
+<p><img src="/images/wenire_img/debug.png" alt="调试脚本"><br><img src="/images/wenire_img/result.png" alt="结果"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
