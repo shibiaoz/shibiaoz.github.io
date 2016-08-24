@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640">
+    <title>&#x501F;&#x8D37;&#x5B9D;</title>
+    <link rel="stylesheet" href="/zhitou/css/zhitouH5/index.min.css?_=20160824110406">
+
+
+</head>
+<body>
+
+<div class="loading">
+    <img src="../../img/zhitouH5/ld_l.png" class="ld_l">
+    <img src="../../img/zhitouH5/ld_r.png" class="ld_r">
+    <div class="move"><img src="../../img/zhitouH5/loading-move.jpg"></div>
+    <div id="load-bar" class="txt"><span>0%</span></div>
+</div>
+
+<div id="home"></div>
+
+<div id="video-wrapper" class="video-wrapper">
+    <div class="video-responsive">
+        <video id="js-video" class="video js-video" webkit-playsinline="" muted>
+            <source src="../../img/zhitouH5/final.mp4" type="video/mp4">
+        </video>
+        <canvas id="js-canvas" class="canvas js-canvas" width="640" height="1138"></canvas>
+        <div id="js-timeline" class="video-timeline js-timeline">
+            <div id="js-timeline-passed" class="video-timeline-passed js-timeline-passed">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="end" class="mydiv"></div>
+
+
+<div id="Rotation">
+    <div id="rBack"></div>
+</div>
+    <script src="/zhitou/js/zhitouH5/index.min.js?_=20160824110406"></script>
+
+<script>
+    var _getParamsObjFromUrl = function(type) {
+        var search = window.location.search;
+        var strParams = search.substr(1);
+        var arrParasm = strParams.split('&');
+        var paramsObj = {};
+        if (type === 'string') {
+            return strParams;
+        } else if (type === 'object') {
+            arrParasm.forEach(function(value) {
+                var tmpArr = value && value.split('=') || [];
+                tmpArr[0] && (paramsObj[tmpArr[0]] = tmpArr[1]);
+            });
+            return paramsObj;
+        }
+    };
+    var _params = _getParamsObjFromUrl('object');
+    var from = _params && _params['_from'] || 'no_from';
+    var _hmt = _hmt || [];
+
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?b65227112318be3ab7c8c12a81815fd7";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+    _hmt.push(['_trackPageview', '/zhitouH5FirstPagePageview/' + from]);
+
+    (function() {
+        var url = encodeURIComponent(location.href.split('#')[0]);
+        var shareUrl = location.href;
+        var title = '卧槽，羽泉把我的手机屏幕喊碎了！！！';
+        var des = '洪荒之力已将234216个屏幕吼碎了！';
+        var protocol = location.protocol || 'http:';
+        var imgUrl = location.origin + '/yq/img/zhitouH5/shareImg.png';
+        $.getJSON(protocol + '//tongji.jiedaibao.com/weixin/config?current_page_url=' + url + '&app_id=wxc9a3c8c03a7fd87c', function(rspData) {
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: rspData.appId, // 必填，公众号的唯一标识
+                timestamp: rspData.timestamp, // 必填，生成签名的时间戳
+                nonceStr: rspData.nonceStr, // 必填，生成签名的随机串
+                signature: rspData.signature, // 必填，签名，见附录1
+
+                // jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage'
+                ]
+            });
+
+            wx.ready(function() {
+                wx.onMenuShareTimeline({
+                    title: title, // 分享标题
+                    link: shareUrl, // 分享链接
+                    imgUrl: imgUrl,
+                    success: function() {
+                        _hmt.push(['_trackEvent', 'wx', 'onMenuShareTimeline', 'zhitouH5','success']);
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function() {
+                        _hmt.push(['_trackEvent', 'wx', 'onMenuShareTimeline', 'zhitouH5','cancel']);
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+                wx.onMenuShareAppMessage({
+                    title: title, // 分享标题
+                    desc: des, // 分享描述
+                    link: shareUrl, // 分享链接
+                    imgUrl: imgUrl, // 分享图标
+                    type: 'link', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function() {
+                        _hmt.push(['_trackEvent', 'wx', 'onMenuShareAppMessage', 'zhitouH5','success']);
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function() {
+                        _hmt.push(['_trackEvent', 'wx', 'onMenuShareAppMessage', 'zhitouH5','cancel']);
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+            });
+        });
+    })();
+</script>
+    </body>
+</html>

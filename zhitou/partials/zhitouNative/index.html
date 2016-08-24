@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="viewport" content="width=640, user-scalable=no">
+    <script>
+    var _width = parseInt(window.screen.width);
+    var scale = _width / 640;
+    var ua = navigator.userAgent.toLowerCase();
+    var result = /android (\d+\.\d+)/.exec(ua);
+    if (result) {
+        var version = parseFloat(result[1]);
+        if (version > 2.3) {
+            document.write('<meta name="viewport" content="width=640, minimum-scale = ' + scale + ', maximum-scale = ' + scale + ', target-densitydpi=device-dpi">');
+        } else {
+            document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+        }
+    } else {
+        document.write('<meta name="viewport" content="width=640, minimum-scale = ' + scale + ', maximum-scale = ' + scale + ', target-densitydpi=device-dpi">');
+    }
+    </script>
+    <title>&#x501F;&#x8D37;&#x5B9D;</title>
+    <link rel="stylesheet" href="/zhitou/css/zhitouNative/index.min.css?_=20160824110406">
+</head>
+
+<body>
+    <div class="loading">
+        <img src="../../img/zhitouNative/ld_l.png" class="ld_l">
+        <img src="../../img/zhitouNative/ld_r.png" class="ld_r">
+        <div class="move"><img src="../../img/zhitouNative/loading-move.jpg"></div>
+        <div id="load-bar" class="txt"><span>0%</span></div>
+    </div>
+    <div id="home"></div>
+    <div id="video-wrapper" class="video-wrapper">
+        <div class="video-responsive">
+            <video id="js-video" class="video js-video" webkit-playsinline="" muted>
+                <source src="../../img/zhitouNative/final.mp4" type="video/mp4">
+            </video>
+            <canvas id="js-canvas" class="canvas js-canvas" width="640" height="1138"></canvas>
+            <div id="js-timeline" class="video-timeline js-timeline">
+                <div id="js-timeline-passed" class="video-timeline-passed js-timeline-passed">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="end" class="mydiv"></div>
+    <div id="Rotation">
+        <div id="rBack"></div>
+    </div>
+    <script src="/zhitou/js/zhitouNative/index.min.js?_=20160824110406"></script>
+    <script>
+    var _getParamsObjFromUrl = function(type) {
+        var search = window.location.search;
+        var strParams = search.substr(1);
+        var arrParasm = strParams.split('&');
+        var paramsObj = {};
+        if (type === 'string') {
+            return strParams;
+        } else if (type === 'object') {
+            arrParasm.forEach(function(value) {
+                var tmpArr = value && value.split('=') || [];
+                tmpArr[0] && (paramsObj[tmpArr[0]] = tmpArr[1]);
+            });
+            return paramsObj;
+        }
+    };
+    var _params = _getParamsObjFromUrl('object');
+    var from = _params && _params['_from'] || 'no_from';
+    var _hmt = _hmt || [];
+
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?b65227112318be3ab7c8c12a81815fd7";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+    _hmt.push(['_trackPageview', '/zhitouNativeFirstPagePageview/' + from]);
+    </script>
+
+</body>
+
+</html>
