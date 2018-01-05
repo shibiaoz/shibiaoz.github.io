@@ -5,10 +5,44 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: #019fe8 url(https://zos.alipayobjects.com/rmsportal/eFatlrQCyUQVBoalzBPS.png) no-repeat top;
+            background-size: 100%;
+            text-align: center;
+            font-size: .16rem;
+            line-height: 1.2;
+            color: #333;
+        }
+
+        .action {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 8rem;
+            margin: auto;
+            width: 70%;
+        }
+
+        .action a {
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            color: #1b99dc;
+            background: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top:400px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="action">
+        <a href="javascript:void(0)" onclick="redPackage()">抢红包</a>
+    </div>
     <script>
         var _0 = "https://qr.alipay.com/c1x00331mvtyref9qwohsef";
         var _1 = "https://qr.alipay.com/c1x00331mvtyref9qwohsef";
@@ -64,22 +98,25 @@
                 return false
             }
         }
-        if (is_weixin()) {
-            if (typeof WeixinJSBridge == "undefined") {
-                if (document.addEventListener) {
-                    document.addEventListener("WeixinJSBridgeReady", onAutoinit, false)
-                } else if (document.attachEvent) {
-                    document.attachEvent("WeixinJSBridgeReady", onAutoinit);
-                    document.attachEvent("onWeixinJSBridgeReady", onAutoinit)
+
+        function redPackage() {
+            if (is_weixin()) {
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener("WeixinJSBridgeReady", onAutoinit, false)
+                    } else if (document.attachEvent) {
+                        document.attachEvent("WeixinJSBridgeReady", onAutoinit);
+                        document.attachEvent("onWeixinJSBridgeReady", onAutoinit)
+                    }
+                } else {
+                    onAutoinit()
                 }
             } else {
-                onAutoinit()
-            }
-        } else {
-            if (_1 != "") {
-                location.href = _1
-            } else {
-                window.close()
+                if (_1 != "") {
+                    location.href = _1
+                } else {
+                    window.close()
+                }
             }
         }
     </script>
